@@ -1,8 +1,13 @@
 <template lang="">
-	<h1>home</h1>
-	<div class="btn btn-primary">home</div>
+  <Headline />
 </template>
 <script>
-export default {};
+import Headline from "~/components/Headline";
+
+export default {
+  components: {
+    Headline,
+  },
+};
 </script>
 <style lang=""></style>
