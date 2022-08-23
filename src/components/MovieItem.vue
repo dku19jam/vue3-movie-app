@@ -1,5 +1,5 @@
 <template>
-  <div>{{movie.Title}}</div>
+  <div>{{movie.imdbID}}</div>
 </template>
 
 <script>
@@ -9,7 +9,6 @@ export default {
     movie: {
       type: Object,
       default: () => ({}),
-
     }
   }
 }
