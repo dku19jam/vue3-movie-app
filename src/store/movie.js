@@ -40,7 +40,10 @@ export default {
         if (pageLength > 1) {
           for (let page = 2; page <= pageLength; page += 1) {
             if (page > payload.number / 10) break
-            const res = await _fetchMovie;
+            const res = await _fetchMovie({
+              ...payload,
+              page:page
+            });
             const { Search } = res.data;
             commit("updateState", {
               movies: [...state.movies, ..._uniqBy(Search, 'imdbID')],
