@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <Headline />
   <Search />
   <MovieList />

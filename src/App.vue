@@ -1,4 +1,4 @@
-<template lang="">
+<template lang="html">
   <Header> </Header>
   <RouterView></RouterView>
   <Footer></Footer>
