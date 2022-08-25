@@ -1,23 +1,43 @@
 <template>
-  <div :style="{backgroundImage: `url(${movie.Poster})`}" class="movie">
+  <div :style="{ backgroundImage: `url(${movie.Poster})` }" class="movie">
+    <Loader v-if="imageLoading" :size="1.5" absolute></Loader>
     <div class="info">
       <div class="year">
-        {{movie.Year}}
+        {{ movie.Year }}
       </div>
       <div class="title">
-        {{movie.Title}}
+        {{ movie.Title }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loader from "~/components/Loader";
+
 export default {
   name: "MovieItem",
+  components: {
+    Loader,
+  },
   props: {
     movie: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  data() {
+    return {
+      imageLoading: true,
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    async init() {
+      await this.$loadImage(this.movie.Poster);
+      this.imageLoading = false;
     },
   },
 };
@@ -46,7 +66,7 @@ export default {
     border: 6px solid $primary;
   }
   .info {
-    background-color: rgba($black, .3);
+    background-color: rgba($black, 0.3);
     width: 100%;
     padding: 14px;
     font-size: 14px;
@@ -55,7 +75,7 @@ export default {
     left: 0;
     bottom: 0;
     backdrop-filter: blur(10px);
-    .year{
+    .year {
       color: $primary;
     }
     .title {

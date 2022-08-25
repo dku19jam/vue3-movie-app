@@ -17,8 +17,12 @@
     <div v-else class="movie-details">
       <div
         class="poster"
-        :style="{ backgroundImage: `url(${theMovie.Poster})` }"
-      ></div>
+        :style="{
+          backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})`,
+        }"
+      >
+        <Loader v-if="imageLoading" absolute></Loader>
+      </div>
       <div class="specs">
         <div class="title">
           {{ theMovie.Title }}
@@ -70,6 +74,11 @@
 import Loader from "~/components/Loader";
 export default {
   components: { Loader },
+  data() {
+    return {
+      imageLoading: true,
+    }
+  },
   computed: {
     theMovie() {
       return this.$store.state.movie.theMovie;
@@ -83,6 +92,14 @@ export default {
     this.$store.dispatch("movie/searchMovieWithId", {
       id: this.$route.params.id,
     });
+  },
+  methods: {
+    requestDiffSizeImage(url, size = 700) {
+      const src = url.replace('SX300', `SX${size}`);
+      this.$loadImage(src)
+        .then(() => {this.imageLoading = false});
+      return src;
+    },
   },
 };
 </script>
@@ -139,6 +156,7 @@ export default {
     background-color: $gray-200;
     background-size: cover;
     background-position: center;
+    position: relative;
   }
 
   .specs {
@@ -166,7 +184,7 @@ export default {
       margin-top: 20px;
     }
     .ratings {
-      .rating-wrap{
+      .rating-wrap {
         display: flex;
         .rating {
           display: flex;
