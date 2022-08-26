@@ -72,6 +72,7 @@
 </template>
 <script>
 import Loader from "~/components/Loader";
+import {mapState, mapActions} from "vuex";
 export default {
   components: { Loader },
   data() {
@@ -80,12 +81,10 @@ export default {
     };
   },
   computed: {
-    theMovie() {
-      return this.$store.state.movie.theMovie;
-    },
-    loading() {
-      return this.$store.state.movie.loading;
-    },
+    ...mapState('movie',[
+      'theMovie',
+      'loading'
+    ])
   },
   created() {
     console.log(this.$route);
@@ -106,10 +105,11 @@ export default {
       return src;
     },
   },
+
 };
 </script>
 <style lang="scss" scoped>
-@import "~/scss/main";
+
 
 .container {
   padding-top: 40px;

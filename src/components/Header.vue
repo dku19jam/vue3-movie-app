@@ -20,6 +20,7 @@
 </template>
 <script>
 import Logo from "~/components/Logo";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -54,18 +55,11 @@ export default {
     },
   },
   computed: {
-    image() {
-      return this.$store.state.about.image;
-    },
-    name() {
-      return this.$store.state.about.name;
-    },
+    ...mapState("about", ["image", "name"]),
   },
 };
 </script>
 <style lang="scss" scoped>
-@import "~/scss/main";
-
 header {
   height: 70px;
   padding: 0 40px;
@@ -88,7 +82,7 @@ header {
     bottom: 0;
     right: 40px;
     margin: auto;
-    transition: .4s;
+    transition: 0.4s;
     &:hover {
       background-color: darken($gray-200, 10%);
     }
@@ -99,7 +93,7 @@ header {
       position: relative;
     }
   }
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(sm) {
     .nav {
       display: none;
     }
